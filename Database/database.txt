@@ -1,0 +1,64 @@
+demo in https://app.quickdatabasediagrams.com/
+
+sanpham
+--
+id int PK
+name nvarchar
+idLoai int FK >- Loai.idLoai
+QrCode varchar
+BarCode varchar
+image varchar
+descreiption nvarchar
+idNSX int FK >- NhaSanXuat.idNSX
+price decimal
+
+Loai
+---
+idLoai int PK
+tenLoai nvarchar
+
+NhaSanXuat
+-
+idNSX int pk
+nameNSX nvarchar
+phone varchar
+address nvarchar
+
+hoaDon
+-
+idHD int Pk
+soluong int
+total decimal
+ngayLap date
+idNV int
+maKH int
+
+CTHD
+-
+idHD int PK FK >- hoaDon.idHD
+idSP int PK FK >- sanpham.id
+donGia decimal
+
+nhanVien
+-
+idNV int PK FK >- hoaDon.idNV
+name nvarchar
+age int
+phone varchar
+address nvarchar
+bangCap nvarchar
+ngayVaoLam date
+
+Account
+-
+id int PK
+username varchar
+password varchar
+idQuyen FK >- phanQuyen.idQuyen
+displayName nvarchar
+idNV FK >- nhanVien.idNV
+
+phanQuyen
+-
+idQuyen Pk 
+name nvarchar
