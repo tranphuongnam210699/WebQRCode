@@ -2,14 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+require('dotenv').config();
+
 //connect Database
-mongoose.connect('mongodb://localhost:27017/DACS', {
+const uri = process.env.URL;
+mongoose.connect(uri, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-
-require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,13 +18,13 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// // khai báo route api
-// const exerciseRouter = require('./routes/exercises.route');
-// const userRouter = require('./routes/users.route');
+// khai báo route api
+const exerciseRouter = require('./routes/exercises.route');
+const userRouter = require('./routes/users.route');
 
-// //khai báo URL api
-// app.use('/api/exercises', exerciseRouter);
-// app.use('/api/users', userRouter);
+//khai báo URL api
+app.use('/api/exercises', exerciseRouter);
+app.use('/api/users', userRouter);
 
 // thông báo kết nối thành công database
 mongoose.connection.once('open', () => {
