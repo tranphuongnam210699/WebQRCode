@@ -23,8 +23,8 @@ const exerciseRouter = require('./routes/exercises.route');
 const userRouter = require('./routes/users.route');
 
 //khai báo URL api
-app.use('/api/exercises', exerciseRouter);
-app.use('/api/users', userRouter);
+app.use('/exercises', exerciseRouter);
+app.use('/users', userRouter);
 
 // thông báo kết nối thành công database
 mongoose.connection.once('open', () => {
