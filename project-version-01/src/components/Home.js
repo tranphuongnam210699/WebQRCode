@@ -32,7 +32,7 @@ export default class Home extends Component {
                 />
                 <p>{this.state.result}</p> */}
 
-                this is page Home
+                This is page Home 
             </div>
         );
     }
