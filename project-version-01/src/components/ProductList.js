@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import axios from "axios";
+var QRCode = require("qrcode.react");
+var Barcode = require("react-barcode");
 
 export default class ProductList extends Component {
     constructor(props) {
@@ -30,11 +32,11 @@ export default class ProductList extends Component {
                     <table className="table table-striped">
                         <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Loại</th>
                                 <th>QRCode</th>
                                 <th>BarCode</th>
-                                <th>Image</th>
                                 <th>Description</th>
                                 <th>NSX</th>
                                 <th>Price</th>
@@ -47,8 +49,25 @@ export default class ProductList extends Component {
                                         <td>{contentProduct.Image}</td>
                                         <td>{contentProduct.Name}</td>
                                         <td>{contentProduct.LoaiID}</td>
-                                        <td>{contentProduct.QRCode}</td>
-                                        <td>{contentProduct.BarCode}</td>
+                                        <td>
+                                            <QRCode
+                                                value={contentProduct.QRCode}
+                                                renderAs="svg"
+                                                style={{
+                                                    width: "142px",
+                                                    height: "142px"
+                                                }}
+                                            />
+                                        </td>
+                                        <td style={{
+                                                    width: "50px",
+                                                    height: "50px"
+                                                }}>
+                                            <Barcode
+                                                value={contentProduct.BarCode}
+                                                
+                                            />
+                                        </td>
                                         <td>{contentProduct.Description}</td>
                                         <td>{contentProduct.NSXId}</td>
                                         <td>{contentProduct.Price}</td>

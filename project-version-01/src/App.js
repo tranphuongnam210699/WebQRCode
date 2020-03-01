@@ -9,6 +9,7 @@ import CreateUser from './components/createUser';
 import ProductList from './components/ProductList';
 import Home from './components/Home';
 import AddProduct from './components/AddProduct';
+import QRCode from './components/QRCode';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                 <Route path='/products' exact component={ProductList} />
                 <Route path='/addProduct' exact component={AddProduct} />
                 <Route path='/user' exact component={CreateUser} />
+                <Route path='/QRCode' exact component={QRCode}/>
             </div>
         </Router>
     );

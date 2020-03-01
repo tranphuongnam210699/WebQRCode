@@ -21,6 +21,11 @@ export default class Navbar extends Component {
                                     Add Product
                                 </Link>
                             </li>
+                            <li className='navbar-item'>
+                                <Link to='/QRCode' className='nav-link'>
+                                    QR code
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
