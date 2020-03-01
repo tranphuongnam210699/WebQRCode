@@ -19,12 +19,12 @@ app.use(cors());
 app.use(express.json());
 
 // khai báo route api
-const exerciseRouter = require('./routes/exercises.route');
 const userRouter = require('./routes/users.route');
+const productRouter = require('./routes/products.route');
 
 //khai báo URL api
-app.use('/exercises', exerciseRouter);
 app.use('/users', userRouter);
+app.use('/products', productRouter);
 
 // thông báo kết nối thành công database
 mongoose.connection.once('open', () => {

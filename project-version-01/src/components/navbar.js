@@ -7,23 +7,18 @@ export default class Navbar extends Component {
             <nav className='navbar navbar-dark bg-dark navbar-expand-lg'>
                 <div className='container'>
                     <Link to='/' className='navbar-brand'>
-                        ExcerTarcker
+                        Home
                     </Link>
                     <div className='collapse navbar-collapse'>
                         <ul className='navbar-nav mr-auto'>
                             <li className='navbar-item'>
-                                <Link to='/' className='nav-link'>
-                                    Exercise
+                                <Link to='/products' className='nav-link'>
+                                    Product
                                 </Link>
                             </li>
                             <li className='navbar-item'>
-                                <Link to='/create' className='nav-link'>
-                                    Create Exercise Log
-                                </Link>
-                            </li>
-                            <li className='navbar-item'>
-                                <Link to='/user' className='nav-link'>
-                                    Create User
+                                <Link to='/addProduct' className='nav-link'>
+                                    Add Product
                                 </Link>
                             </li>
                         </ul>
