@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 //connect Database
-const uri = process.env.URL;
+const uri = process.env.MLAB_URL;
 mongoose.connect(uri, {
     useCreateIndex: true,
     useNewUrlParser: true,

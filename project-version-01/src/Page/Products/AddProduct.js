@@ -101,7 +101,7 @@ export default class AddProduct extends Component {
 
     render() {
         return (
-            <div>
+            <div className='pageAddProduct'>
                 <h3>Create New Exercise Log</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">

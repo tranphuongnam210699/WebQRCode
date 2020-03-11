@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import './Products.scss';
 // import { Link } from "react-router-dom";
 import axios from "axios";
 var QRCode = require("qrcode.react");
 var Barcode = require("react-barcode");
+
+
 
 export default class ProductList extends Component {
     constructor(props) {
@@ -27,7 +30,7 @@ export default class ProductList extends Component {
         const { product } = this.state;
         return (
             <div>
-                <div className="container">
+                <div className="pageProductList">
                     <h2>Products ({product.length})</h2>
                     <table className="table table-striped">
                         <thead>
