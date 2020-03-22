@@ -154,9 +154,9 @@ export default class AddProduct extends Component {
 
         return (
             <div className="pageAddProduct">
-                <h3>Create New Exercise Log</h3>
+                <h3>Add Product</h3>
                 <form onSubmit={this.onSubmit}>
-                    <Upload
+                    {/* <Upload
                         name="avatar"
                         listType="picture-card"
                         className="avatar-uploader"
@@ -174,7 +174,7 @@ export default class AddProduct extends Component {
                         ) : (
                             uploadButton
                         )}
-                    </Upload>
+                    </Upload> */}
                     <div className="form-group">
                         <label>Name: </label>
                         <input

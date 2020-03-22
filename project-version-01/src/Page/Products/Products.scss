@@ -1,3 +1,90 @@
-.pageProductList, .pageAddProduct{
-    padding: 0 7%;
+.pageProductList{
+    padding: 0 2vw;
+    padding-top: 2vh;
+    width: 100%;
+    .titleHeaderPage{
+        font-weight: bold;
+        font-size: 30px;
+    }
+    .buttonAdd{
+        background-color: #0A3F7F;
+        color: white;
+        padding: 5px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        a{
+            color: white;
+        }
+    }
+    .table_wrapper{
+        overflow-y: scroll;
+        height: 79vh;
+        max-height: 79vh;
+        .column1{
+            width: 8vw;
+            display: flex;
+            justify-content: center;
+        }
+        .column2{
+            width: 15vw;
+        }
+        .column3{
+            width: 7vw;
+        }
+        .column4{
+            width: 7vw;
+        }
+        .column5{
+            width: 10vw;
+        }
+        .column6{
+            width: 15vw;
+        }
+        .column7{
+            width: 7vw;
+        }
+        .column8{
+            width: 10vw;
+        }
+        .column9{
+            width: 5vw;
+        }
+        .column1, .column2, .column3, .column4, .column5, .column6, .column7, .column8, .column9{
+            padding: 0 .5vw;
+        }
+        .titleHead{
+            font-weight: bold;
+            font-size: 18px;
+            color: black;
+            padding: 5px 0;
+        }
+        .contentTable{
+            color: black;
+            border-top: 1px solid;
+            padding: 10px 0;
+            .column1{
+                img{
+                    background-color: coral;
+                    width: 5.2vw;
+                    height: 6.77vw;
+                }
+            }
+            .column4{
+                svg{
+                    width: 5.2vw;
+                    height: 5.2vw;
+                }
+            }
+            .column5{
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: flex-end;
+                svg{
+                    width: 10vw;
+                    height: 6vw;
+                }
+            }
+        }
+    }
 }

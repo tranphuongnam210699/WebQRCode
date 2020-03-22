@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import './Products.scss';
+import "./Products.scss";
+import { EditOutlined, CloseOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import axios from "axios";
 var QRCode = require("qrcode.react");
 var Barcode = require("react-barcode");
-
-
 
 export default class ProductList extends Component {
     constructor(props) {
@@ -31,54 +31,78 @@ export default class ProductList extends Component {
         return (
             <div>
                 <div className="pageProductList">
-                    <h2>Products ({product.length})</h2>
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Loại</th>
-                                <th>QRCode</th>
-                                <th>BarCode</th>
-                                <th>Description</th>
-                                <th>NSX</th>
-                                <th>Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {product.map((contentProduct, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{contentProduct.Image}</td>
-                                        <td>{contentProduct.Name}</td>
-                                        <td>{contentProduct.LoaiID}</td>
-                                        <td>
-                                            <QRCode
-                                                value={contentProduct.QRCode}
-                                                renderAs="svg"
-                                                style={{
-                                                    width: "142px",
-                                                    height: "142px"
-                                                }}
-                                            />
-                                        </td>
-                                        <td style={{
-                                                    width: "50px",
-                                                    height: "50px"
-                                                }}>
-                                            <Barcode
-                                                value={contentProduct.BarCode}
-                                                
-                                            />
-                                        </td>
-                                        <td>{contentProduct.Description}</td>
-                                        <td>{contentProduct.NSXId}</td>
-                                        <td>{contentProduct.Price}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <span className="titleHeaderPage">
+                            Products ({product.length})
+                        </span>
+                        <span className="buttonAdd">
+                            <Link to="/addProduct">Add Product</Link>
+                        </span>
+                    </div>
+                    <div className="table_wrapper">
+                        <div className="titleHead d-flex">
+                            <div className="column1">Image</div>
+                            <div className="column2">Name</div>
+                            <div className="column3">Loại</div>
+                            <div className="column4">QRCode</div>
+                            <div className="column5">BarCode</div>
+                            <div className="column6">Description</div>
+                            <div className="column7">NSX</div>
+                            <div className="column8">Price</div>
+                            <div className="column9"></div>
+                        </div>
+                        {product.map((contentProduct, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className="contentTable d-flex"
+                                >
+                                    <div className="column1">
+                                        <img
+                                            src={contentProduct.Image}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div className="column2">
+                                        <span>{contentProduct.Name}</span>
+                                    </div>
+                                    <div className="column3">
+                                        <span>{contentProduct.LoaiID}</span>
+                                    </div>
+                                    <div className="column4">
+                                        <QRCode
+                                            value={contentProduct.QRCode}
+                                            renderAs="svg"
+                                        />
+                                    </div>
+                                    <div className="column5" renderAs="svg">
+                                        <Barcode
+                                            value={contentProduct.BarCode}
+                                        />
+                                    </div>
+                                    <div className="column6">
+                                        <span>
+                                            {contentProduct.Description}
+                                        </span>
+                                    </div>
+                                    <div className="column7">
+                                        <span>{contentProduct.NSXId}</span>
+                                    </div>
+                                    <div className="column8">
+                                        <span>{contentProduct.Price}</span>
+                                    </div>
+                                    <div className="column9 d-flex">
+                                        <div className="iconEdit">
+                                            <EditOutlined />
+                                        </div>
+                                        <div className="iconDelete">
+                                            <CloseOutlined />
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         );
