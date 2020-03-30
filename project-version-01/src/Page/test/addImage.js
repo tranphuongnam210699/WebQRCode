@@ -28,7 +28,7 @@ export default class addImage extends Component {
         super(props);
         this.state = {
             loading: false,
-            Image: ''
+            originFileObj: ''
         }
     }
     
@@ -43,7 +43,7 @@ export default class addImage extends Component {
                 this.setState({
                     imageUrl,
                     loading: false,
-                    Image: info.file.originFileObj
+                    originFileObj: info.file.originFileObj
                 })
             );
         }
@@ -52,12 +52,26 @@ export default class addImage extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const image =  {
-            originFileObj: this.state.Image
+        const {originFileObj} = this.state
+        const OriginFileObj =  {
+            originFileObj: originFileObj
         }
-        axios
-            .post("http://localhost:5000/image/add", image)
-            .then(res => console.log(res.data));
+        console.log('OriginFileObj :', OriginFileObj);
+        fetch('http://localhost:5000/image/add', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                OriginFileObj
+            })
+        })
+        .then(res => res.json())
+        .then(json => console.log(json))
+        // axios
+        //     .post("http://localhost:5000/image/add", OriginFileObj)
+        //     .then(res => console.log(res.data));
     }
 
     render() {
@@ -91,7 +105,7 @@ export default class addImage extends Component {
                         uploadButton
                     )}
                 </Upload>
-                <Button onChange={this.onSubmit}>Upload</Button>
+                <Button onClick={this.onSubmit}>Upload</Button>
             </div>
         );
     }

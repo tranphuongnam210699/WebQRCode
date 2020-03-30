@@ -26,7 +26,6 @@ export default class ProductList extends Component {
             });
     }
     render() {
-        console.log(this.state.product);
         const { product } = this.state;
         return (
             <div>
@@ -91,7 +90,7 @@ export default class ProductList extends Component {
                                     <div className="column8">
                                         <span>{contentProduct.Price}</span>
                                     </div>
-                                    <div className="column9 d-flex">
+                                    <div className="column9 d-flex justify-content-between">
                                         <div className="iconEdit">
                                             <EditOutlined />
                                         </div>

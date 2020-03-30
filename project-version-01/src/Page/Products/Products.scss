@@ -1,6 +1,4 @@
 .pageProductList{
-    padding: 0 2vw;
-    padding-top: 2vh;
     width: 100%;
     .titleHeaderPage{
         font-weight: bold;
@@ -20,6 +18,7 @@
         overflow-y: scroll;
         height: 79vh;
         max-height: 79vh;
+        
         .column1{
             width: 8vw;
             display: flex;
@@ -86,5 +85,14 @@
                 }
             }
         }
+    }
+    .table_wrapper::-webkit-scrollbar {
+        width: 10px;
+        background-color: #f5f5f5;
+    }
+    .table_wrapper::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: linear-gradient(left, #fff, #e4e4e4);
+        border: 1px solid #aaa;
     }
 }

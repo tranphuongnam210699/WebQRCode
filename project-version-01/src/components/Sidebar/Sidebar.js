@@ -7,11 +7,10 @@ export default class Sidebar extends Component {
         return (
             <div className="sidebar d-flex flex-column align-items-center">
                 <Link to="/products" className="nav-link">
-                    Sản phẩm
+                    Product
                 </Link>
-                
-                <Link to="/scanqrcode" className="nav-link">
-                    ScanQRCode
+                <Link to="/categories" className="nav-link">
+                    Categories
                 </Link>
                 <Link to="/addImage" className="nav-link">
                     Add Image

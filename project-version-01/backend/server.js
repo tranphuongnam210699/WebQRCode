@@ -22,11 +22,13 @@ app.use(express.json());
 const userRouter = require('./routes/users.route');
 const productRouter = require('./routes/products.route');
 const imageRouter = require('./routes/image.route');
+const categoryRouter = require('./routes/category.route');
 
 //khai báo URL api
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/image', imageRouter);
+app.use('/category', categoryRouter);
 
 // thông báo kết nối thành công database
 mongoose.connection.once('open', () => {

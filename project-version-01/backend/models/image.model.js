@@ -3,11 +3,14 @@ const mongose = require("mongoose");
 const Schema = mongose.Schema;
 
 var ImageSchema = new Schema(
+    // {
+    //     originFileObj: Array
+    // },
+    // {
+    //     timestamps: true
+    // }
     {
-        originFileObj: Object
-    },
-    {
-        timestamps: true
+        originFileObj: {type: Array, default:[]}
     }
 );
 

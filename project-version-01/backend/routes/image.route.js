@@ -8,14 +8,19 @@ router.route('/').get((res,req) => {
 });
 
 router.route('/add').post((res,req) => {
-    const uid = req.body.uid;
-    const originFileObj = req.body.originFileObj;
-    const newImage = new Image({
-        uid, originFileObj
-    });
-    newImage.save()
-    .then(() => res.json('Image added'))
-    .catch(err => res.status(400).json('Error: ' +err));
+    const { body } = req;
+    console.log("Hello", req);
+    // let originFileObj = req.body.originFileObj;
+
+    // const newImage = new Image({
+    //     originFileObj
+    // });
+
+    // res.status(+originFileObj);
+
+    // newImage.save()
+    // .then(() => res.json('Image added'))
+    // .catch(err => res.status(400).json('Error: ' +err));
 })
 
 module.exports = router;

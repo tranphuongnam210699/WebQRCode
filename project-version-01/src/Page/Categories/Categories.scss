@@ -1,0 +1,30 @@
+.pageCategories{
+    .titleHeaderPage{
+        font-weight: bold;
+        font-size: 30px;
+    }
+    .buttonAdd{
+        background-color: #0A3F7F;
+        color: white;
+        padding: 5px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        a{
+            color: white;
+        }
+    }
+    .titleContent{
+        font-weight: bold;
+        font-size: 18px;
+        color: black;
+        padding: 5px 0;
+    }
+    .content{
+        color: black;
+        border-top: 1px solid;
+        padding: 10px 0;
+    }
+    .col-5, .col-7{
+        padding: 0;
+    }
+}
