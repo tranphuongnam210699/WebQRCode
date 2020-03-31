@@ -8,7 +8,7 @@ var productSchema = new Schema(
         LoaiID: String,
         QRCode: String,
         BarCode: String,
-        Image: String,
+        productImage: String,
         Description: String,
         NSXId: String,
         Price: String

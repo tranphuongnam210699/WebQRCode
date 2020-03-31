@@ -12,9 +12,6 @@ export default class Sidebar extends Component {
                 <Link to="/categories" className="nav-link">
                     Categories
                 </Link>
-                <Link to="/addImage" className="nav-link">
-                    Add Image
-                </Link>
             </div>
         );
     }

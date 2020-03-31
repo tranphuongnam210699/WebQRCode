@@ -138,114 +138,89 @@ export default class AddProduct extends Component {
         axios
             .post("http://localhost:5000/products/add", product)
             .then(res => console.log(res.data));
-
         // window.location = "/products";
     }
 
     render() {
-        const uploadButton = (
-            <div>
-                {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
-                <div className="ant-upload-text">Upload</div>
-            </div>
-        );
-
-        const { imageUrl } = this.state;
-
         return (
             <div className="pageAddProduct">
                 <h3>Add Product</h3>
-                <form onSubmit={this.onSubmit}>
-                    {/* <Upload
-                        name="avatar"
-                        listType="picture-card"
-                        className="avatar-uploader"
-                        showUploadList={false}
-                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                        beforeUpload={beforeUpload}
-                        onChange={this.handleChange}
-                    >
-                        {imageUrl ? (
-                            <img
-                                src={imageUrl}
-                                alt="avatar"
-                                style={{ width: "100%" }}
+                <form onSubmit={this.onSubmit} className="d-flex">
+                    <div className="col-6">
+                        <div className="form-group">
+                            <label>Name: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                onChange={this.onChangeName}
                             />
-                        ) : (
-                            uploadButton
-                        )}
-                    </Upload> */}
-                    <div className="form-group">
-                        <label>Name: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.onChangeName}
-                        />
+                        </div>
+                        <div className="form-group">
+                            <label>LoaiID: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                onChange={this.onChangeLoaiID}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>NSXID: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                onChange={this.onChangeNSXID}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Price: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                onChange={this.onChangePrice}
+                            />
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>LoaiID: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.onChangeLoaiID}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>QRCode: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.onChangeQRCode}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>BarCode: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.onChangeBarCode}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Description: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.onChangeDescription}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>NSXID: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.onChangeNSXID}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Price: </label>
-                        <input
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.onChangePrice}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="submit"
-                            value="Submit"
-                            className="btn btn-primary"
-                        />
+                    <div className="col-6">
+                        <div className="form-group">
+                            <label>QRCode: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                onChange={this.onChangeQRCode}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>BarCode: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                onChange={this.onChangeBarCode}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Description: </label>
+                            <input
+                                type="text"
+                                required
+                                className="form-control"
+                                onChange={this.onChangeDescription}
+                            />
+                        </div>
                     </div>
                 </form>
+                <div className="form-group d-flex justify-content-end">
+                    <input
+                        type="submit"
+                        value="Submit"
+                        className="btn btn-primary"
+                    />
+                </div>
             </div>
         );
     }
