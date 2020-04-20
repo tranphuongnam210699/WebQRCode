@@ -11,15 +11,15 @@ export default class Categories extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Categories: [],
+            Producers: [],
         };
     }
 
     componentDidMount() {
         axios
-            .get("http://localhost:5000/category")
+            .get("http://localhost:5000/producer")
             .then((response) => {
-                this.setState({ Categories: response.data });
+                this.setState({ Producers: response.data });
             })
             .catch((error) => {
                 console.log(error);
@@ -28,58 +28,64 @@ export default class Categories extends Component {
 
     deleteCategory = (id) => {
         axios
-            .delete("http://localhost:5000/category/" + id)
+            .delete("http://localhost:5000/producer/" + id)
             .then((res) => message.success("Deleted"));
 
         this.setState({
-            Categories: this.state.Categories.filter(
+            Producers: this.state.Producers.filter(
                 (result) => result._id !== id
             ),
         });
     };
 
     render() {
-        const { Categories } = this.state;
+        const { Producers } = this.state;
         return (
             <div className="d-flex">
-                <div className="" style={{ height: "85vh", width: "40vw" }}>
+                <div className="" style={{ height: "85vh", width: "70vw" }}>
                     <div className="pageCategories">
                         <div className="headerPage d-flex justify-content-between align-items-center">
                             <span className="titleHeaderPage">
-                                Categories ({Categories.length})
+                                Producers ({Producers.length})
                             </span>
                             <span className="buttonAdd d-flex align-items-center">
-                                <Link to="/addCategory">Add Category</Link>
+                                <Link to="/addProducer">Add Producer</Link>
                             </span>
                         </div>
                         <div className="body">
                             <div className="titleContent d-flex">
-                                <div className="col-4">Category ID</div>
-                                <div className="col-4">Category Name</div>
-                                <div className="col-4"></div>
+                                <div className="col-2">ID</div>
+                                <div className="col-4">Name</div>
+                                <div className="col-2">Phone</div>
+                                <div className="col-2">Address</div>
+                                <div className="col-2"></div>
                             </div>
-                            {Categories.map((result, index) => {
+                            {Producers.map((result, index) => {
                                 return (
                                     <div
                                         className="content d-flex align-items-center"
                                         key={index}
                                     >
-                                        <div className="col-4">
+                                        <div className="col-2">
                                             <span>{result.id}</span>
                                         </div>
                                         <div className="col-4 font-weight-bold">
                                             <Link
                                                 to={{
-                                                    pathname: "/editCategory",
+                                                    pathname: "/editProducer",
                                                     search: `?id=${result._id}`,
                                                 }}
                                             >
-                                                <span>
-                                                    {result.CategoryName}
-                                                </span>
+                                                <span>{result.NSXName}</span>
                                             </Link>
                                         </div>
-                                        <div className="col-4 d-flex justify-content-end">
+                                        <div className="col-2">
+                                            <span>{result.Phone}</span>
+                                        </div>
+                                        <div className="col-2">
+                                            <span>{result.Address}</span>
+                                        </div>
+                                        <div className="col-2 d-flex justify-content-end">
                                             <Popconfirm
                                                 placement="top"
                                                 title={text}

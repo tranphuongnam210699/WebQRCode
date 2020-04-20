@@ -5,9 +5,10 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 //connect Database
-const uri = process.env.MLAB_URL;
+// const uri = process.env.MLAB_URL;
+const uri = 'mongodb://localhost:27017/StoreDB'
 mongoose.connect(uri, {
-    useCreateIndex: true,
+    useNewUrlParser: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -22,11 +23,13 @@ app.use(express.json());
 const userRouter = require('./routes/users.route');
 const productRouter = require('./routes/products.route');
 const categoryRouter = require('./routes/category.route');
+const producerRouter = require('./routes/NSX.route');
 
 //khai báo URL api
 app.use('/users', userRouter);
 app.use('/products', productRouter);
 app.use('/category', categoryRouter);
+app.use('/producer', producerRouter);
 
 // thông báo kết nối thành công database
 mongoose.connection.once('open', () => {

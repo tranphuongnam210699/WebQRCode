@@ -12,6 +12,12 @@ export default class Sidebar extends Component {
                 <Link to="/categories" className="nav-link">
                     Categories
                 </Link>
+                <Link to="/producer" className="nav-link">
+                    Producer
+                </Link>
+                <Link to="/order" className="nav-link">
+                    Order
+                </Link>
             </div>
         );
     }

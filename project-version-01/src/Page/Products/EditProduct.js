@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import { Upload, message, Select } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -24,7 +23,7 @@ function beforeUpload(file) {
 
 const { Option } = Select;
 
-export default class AddProduct extends Component {
+export default class EditProduct extends Component {
     constructor(props) {
         super(props);
 
@@ -49,11 +48,44 @@ export default class AddProduct extends Component {
             loading: false,
             imageUrl: "",
             categories: [],
-            producer: [],
+            producer:[]
         };
     }
 
     componentDidMount() {
+        if (
+            window.location.search.match(/id=(.*)\b/)[1] !== "" ||
+            window.location.search.match(/id=(.*)\b/)[1] != null
+        ) {
+            axios
+                .get(
+                    "http://localhost:5000/products/" +
+                        window.location.search.match(/id=(.*)\b/)[1]
+                )
+                .then((response) => {
+                    const {
+                        productImage,
+                        Name,
+                        LoaiID,
+                        QRCode,
+                        BarCode,
+                        Description,
+                        NSXId,
+                        Price,
+                    } = response.data;
+                    this.setState({
+                        Image: productImage,
+                        Name: Name,
+                        LoaiID: LoaiID,
+                        QRCode: QRCode,
+                        BarCode: BarCode,
+                        Description: Description,
+                        NsxID: NSXId,
+                        Price: Price,
+                    });
+                });
+        }
+
         axios.get("http://localhost:5000/category").then((response) => {
             if (response.data.length > 0) {
                 response.data.map((result) => {
@@ -104,9 +136,9 @@ export default class AddProduct extends Component {
         });
     }
 
-    onChangeNSXID(value) {
+    onChangeNSXID(e) {
         this.setState({
-            NsxID: value,
+            NsxID: e.target.value,
         });
     }
 
@@ -154,28 +186,44 @@ export default class AddProduct extends Component {
             Price: Price,
         };
 
-        axios("http://localhost:5000/products/add", {
-            method: "post",
-            headers: new Headers({
-                "Content-Type": "multipart/form-data",
-            }),
-            data: product,
-        });
-        message.success("Saved");
+        console.log(product);
+
+        if (
+            window.location.search.match(/id=(.*)\b/)[1] !== "" ||
+            window.location.search.match(/id=(.*)\b/)[1] != null
+        ) {
+            axios(
+                "http://localhost:5000/products/update/" +
+                    window.location.search.match(/id=(.*)\b/)[1],
+                {
+                    method: "post",
+                    headers: new Headers({
+                        "Content-Type": "multipart/form-data",
+                    }),
+                    data: product,
+                }
+            );
+        }
+        message.success('Saved');
     }
 
     render() {
-        const uploadButton = (
-            <div>
-                {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
-                <div className="ant-upload-text">Upload</div>
-            </div>
-        );
-        const { imageUrl, categories, producer } = this.state;
-
+        const {
+            imageUrl,
+            categories,
+            producer,
+            Image,
+            Name,
+            LoaiID,
+            QRCode,
+            BarCode,
+            Description,
+            NsxID,
+            Price,
+        } = this.state;
         return (
             <div className="pageAddProduct">
-                <h3>Add Product</h3>
+                <h3>Edit Product</h3>
                 <form onSubmit={this.onSubmit} className="d-flex">
                     <div className="col-6">
                         <div className="form-group">
@@ -184,13 +232,14 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={Name}
                                 onChange={this.onChangeName}
                             />
                         </div>
                         <div className="form-group d-flex justify-content-between">
                             <label>Category: </label>
                             <Select
-                                defaultValue="Selection Category"
+                                value={LoaiID}
                                 style={{ width: "20vw" }}
                                 onChange={this.onChangeLoaiID}
                             >
@@ -208,9 +257,9 @@ export default class AddProduct extends Component {
                             </Select>
                         </div>
                         <div className="form-group d-flex justify-content-between">
-                            <label>Producer: </label>
+                            <label>NSXID: </label>
                             <Select
-                                defaultValue="Selection Producer"
+                                value={NsxID}
                                 style={{ width: "20vw" }}
                                 onChange={this.onChangeNSXID}
                             >
@@ -229,6 +278,7 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={Price}
                                 onChange={this.onChangePrice}
                             />
                         </div>
@@ -240,6 +290,7 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={QRCode}
                                 onChange={this.onChangeQRCode}
                             />
                         </div>
@@ -249,6 +300,7 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={BarCode}
                                 onChange={this.onChangeBarCode}
                             />
                         </div>
@@ -258,6 +310,7 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={Description}
                                 onChange={this.onChangeDescription}
                             />
                         </div>
@@ -277,7 +330,7 @@ export default class AddProduct extends Component {
                                     style={{ width: "100%" }}
                                 />
                             ) : (
-                                uploadButton
+                                <img src={Image} alt=""/>
                             )}
                         </Upload>
                     </div>

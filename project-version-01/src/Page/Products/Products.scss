@@ -84,15 +84,35 @@
                     height: 6vw;
                 }
             }
+            a{
+                color: black;
+            }
+            .column9{
+                .iconDelete{
+                    cursor: pointer;
+                    background-color: #0A3F7F;
+                    color: white;
+                    padding: 0 10px;
+                    height: 25px;
+                    border-radius: 7px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
         }
     }
     .table_wrapper::-webkit-scrollbar {
         width: 10px;
-        background-color: #f5f5f5;
+        background-color: white;
     }
     .table_wrapper::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: linear-gradient(left, #fff, #e4e4e4);
-        border: 1px solid #aaa;
+        background: #0A3F7F;
+    }
+}
+.pageAddProduct{
+    .ant-upload.ant-upload-select-picture-card > .ant-upload{
+        height: 102px;
     }
 }

@@ -12,6 +12,13 @@ import AddProduct from "./Page/Products/AddProduct";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Categories from "./Page/Categories/Categories";
+import EditProduct from "./Page/Products/EditProduct";
+import AddCategory from "./Page/Categories/AddCategory";
+import EditCategory from "./Page/Categories/EditCategory";
+import Producer from './Page/Producer/Producers';
+import AddProducer from './Page/Producer/AddProducer';
+import EditProducer from './Page/Producer/EditProducer';
+import Order from "./Page/Order/Order";
 
 function App() {
     return (
@@ -30,7 +37,46 @@ function App() {
                             exact
                             component={AddProduct}
                         />
-                        <Route path="/categories" exact component={Categories} />
+                        <Route
+                            path="/editProduct"
+                            exact
+                            component={EditProduct}
+                        />
+                        <Route
+                            path="/categories"
+                            exact
+                            component={Categories}
+                        />
+                        <Route
+                            path="/addCategory"
+                            exact
+                            component={AddCategory}
+                        />
+                        <Route
+                            path="/editCategory"
+                            exact
+                            component={EditCategory}
+                        />
+                        <Route
+                            path="/producer"
+                            exact
+                            component={Producer}
+                        />
+                        <Route
+                            path="/addProducer"
+                            exact
+                            component={AddProducer}
+                        />
+                        <Route
+                            path="/editProducer"
+                            exact
+                            component={EditProducer}
+                        />
+                        <Route
+                            path="/order"
+                            exact
+                            component={Order}
+                        />
                     </div>
                 </div>
             </div>
