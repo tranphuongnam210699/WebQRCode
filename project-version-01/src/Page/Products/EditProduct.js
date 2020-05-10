@@ -263,7 +263,7 @@ export default class EditProduct extends Component {
                                 style={{ width: "20vw" }}
                                 onChange={this.onChangeNSXID}
                             >
-                                {producer.map((result) => {
+                                {producer.map((result, index) => {
                                     return (
                                         <Option value={result.id} key={result}>
                                             {result.NSXName}

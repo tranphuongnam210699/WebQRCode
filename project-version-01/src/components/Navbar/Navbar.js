@@ -9,7 +9,7 @@ export default class Navbar extends Component {
         return (
             <div className="navbar d-flex justify-content-between align-items-center">
                 <div className="logo">
-                    <Link to="/">
+                    <Link to="/admin">
                         <span>ST - Market</span>
                     </Link>
                 </div>

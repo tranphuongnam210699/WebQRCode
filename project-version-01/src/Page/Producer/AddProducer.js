@@ -47,16 +47,24 @@ export default class AddCategory extends Component {
             Address: this.state.Address,
         };
 
-        axios
-            .post("http://localhost:5000/producer/add", producer)
-            .then((res) => message.success("Saved"));
-
-        this.setState({
-            ID: "",
-            Name: "",
-            Phone: "",
-            Address: "",
-        });
+        if (
+            producer.ID != "" &&
+            producer.Name != "" &&
+            producer.Phone != "" &&
+            producer.Address != ""
+        ) {
+            axios
+                .post("http://localhost:5000/producer/add", producer)
+                .then((res) => message.success("Saved"));
+            this.setState({
+                ID: "",
+                Name: "",
+                Phone: "",
+                Address: "",
+            });
+        } else {
+            message.error("Missing Data! Please check again");
+        }
     };
     render() {
         return (

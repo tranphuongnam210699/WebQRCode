@@ -3,19 +3,23 @@ import "./Sidebar.scss";
 import { Link } from "react-router-dom";
 
 export default class Sidebar extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
+        const {match} = this.props
         return (
             <div className="sidebar d-flex flex-column align-items-center">
-                <Link to="/products" className="nav-link">
+                <Link to={`${match}/products`} className="nav-link">
                     Product
                 </Link>
-                <Link to="/categories" className="nav-link">
+                <Link to={`${match}/categories`} className="nav-link">
                     Categories
                 </Link>
-                <Link to="/producer" className="nav-link">
+                <Link to={`${match}/producer`} className="nav-link">
                     Producer
                 </Link>
-                <Link to="/order" className="nav-link">
+                <Link to={`${match}/order`} className="nav-link">
                     Order
                 </Link>
             </div>

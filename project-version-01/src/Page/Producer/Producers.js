@@ -42,23 +42,23 @@ export default class Categories extends Component {
         const { Producers } = this.state;
         return (
             <div className="d-flex">
-                <div className="" style={{ height: "85vh", width: "70vw" }}>
+                <div className="" style={{ height: "85vh", width: "80vw" }}>
                     <div className="pageCategories">
                         <div className="headerPage d-flex justify-content-between align-items-center">
                             <span className="titleHeaderPage">
                                 Producers ({Producers.length})
                             </span>
                             <span className="buttonAdd d-flex align-items-center">
-                                <Link to="/addProducer">Add Producer</Link>
+                                <Link to="/admin/addProducer">Add Producer</Link>
                             </span>
                         </div>
                         <div className="body">
                             <div className="titleContent d-flex">
                                 <div className="col-2">ID</div>
-                                <div className="col-4">Name</div>
-                                <div className="col-2">Phone</div>
-                                <div className="col-2">Address</div>
-                                <div className="col-2"></div>
+                                <div className="col-3">Name</div>
+                                <div className="col-3">Phone</div>
+                                <div className="col-3">Address</div>
+                                <div className="col-1"></div>
                             </div>
                             {Producers.map((result, index) => {
                                 return (
@@ -69,23 +69,23 @@ export default class Categories extends Component {
                                         <div className="col-2">
                                             <span>{result.id}</span>
                                         </div>
-                                        <div className="col-4 font-weight-bold">
+                                        <div className="col-3 font-weight-bold">
                                             <Link
                                                 to={{
-                                                    pathname: "/editProducer",
+                                                    pathname: "/admin/editProducer",
                                                     search: `?id=${result._id}`,
                                                 }}
                                             >
                                                 <span>{result.NSXName}</span>
                                             </Link>
                                         </div>
-                                        <div className="col-2">
+                                        <div className="col-3">
                                             <span>{result.Phone}</span>
                                         </div>
-                                        <div className="col-2">
+                                        <div className="col-3">
                                             <span>{result.Address}</span>
                                         </div>
-                                        <div className="col-2 d-flex justify-content-end">
+                                        <div className="col-1 d-flex justify-content-end">
                                             <Popconfirm
                                                 placement="top"
                                                 title={text}

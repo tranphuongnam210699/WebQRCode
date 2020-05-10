@@ -8,7 +8,7 @@ require('dotenv').config();
 // const uri = process.env.MLAB_URL;
 const uri = 'mongodb://localhost:27017/StoreDB'
 mongoose.connect(uri, {
-    useNewUrlParser: true,
+    useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

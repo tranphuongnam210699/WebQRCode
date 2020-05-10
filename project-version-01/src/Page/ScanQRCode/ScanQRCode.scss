@@ -1,16 +1,75 @@
-.QRCodeScan_wraper{
-    section{
+.pageScanQRCode{
+    font-family: 'Be Vietnam', sans-serif !important;
+    .navBarHeader{
+        background-color: #0A3F7F;
+        color: white;
+        padding: 2vw 0;
+        font-size: 4.8vw;
+        margin-bottom: 3vw;
+    }
+    .QRCodeScan_wrapper{
+        
         section{
-            div{
-                border: 8vw solid rgba(0, 0, 0, 0.3) !important;
+            section{
+                div{
+                    border: 8vw solid rgba(0, 0, 0, 0.3) !important;
+                }
+            }
+        }
+        .result{
+            margin-top: 5%;
+            span{
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+        .scanQRCode{
+            width: 80vw;
+        }
+    }
+}
+.productDetail{
+    margin-top: 8vw;
+    padding: 0 2.5vw;
+    .infoProduct{
+        .imageProduct{
+            width: 28vw;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .content_wrapper{
+            margin-left: 1.5vw;
+            .nameProduct{
+                font-size: 4.8vw;
+            }
+            .content{
+                font-size: 3.79vw;
+                :nth-child(1){
+                    font-weight: bold;
+                }
             }
         }
     }
-    .result{
-        margin-top: 5%;
-        span{
-            font-size: 20px;
-            font-weight: bold;
-        }
+}
+.contentDescription_wrapper{
+    .contentDescription{
+        padding: 0 4.5vw;
+        line-height: 190%;
+        margin-top: 2vw;
+        text-align: justify;
+        font-size: 3.73vw;
+    }
+    .buttonChange{
+        background-color: #0A3F7F;
+        color: white;
+        display: flex;
+        justify-content: center;
+        padding: 2vw 0;
+        border-radius: 7px;
+        margin-top: 3vw;
+        margin-bottom: 10vw;
+        font-weight: bold;
     }
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { Upload, message, Select } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import qrcode from "qrcode.react";
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -154,14 +155,37 @@ export default class AddProduct extends Component {
             Price: Price,
         };
 
-        axios("http://localhost:5000/products/add", {
-            method: "post",
-            headers: new Headers({
-                "Content-Type": "multipart/form-data",
-            }),
-            data: product,
-        });
-        message.success("Saved");
+        if (
+            product.Image != "" &&
+            product.Name != "" &&
+            product.LoaiID != "" &&
+            product.QRCode != "" &&
+            product.BarCode != "" &&
+            product.Description != "" &&
+            product.NSXId != "" &&
+            product.Price != ""
+        ) {
+            axios("http://localhost:5000/products/add", {
+                method: "post",
+                headers: new Headers({
+                    "Content-Type": "multipart/form-data",
+                }),
+                data: product,
+            });
+            message.success("Saved");
+            this.setState({
+                Image: "",
+                Name: "",
+                LoaiID: "",
+                QRCode: "",
+                BarCode: "",
+                Description: "",
+                NsxID: "",
+                Price: "",
+            });
+        } else {
+            message.error("Missing Data! Please check again");
+        }
     }
 
     render() {
@@ -171,8 +195,19 @@ export default class AddProduct extends Component {
                 <div className="ant-upload-text">Upload</div>
             </div>
         );
-        const { imageUrl, categories, producer } = this.state;
-
+        const {
+            imageUrl,
+            categories,
+            producer,
+            Image,
+            Name,
+            LoaiID,
+            QRCode,
+            BarCode,
+            Description,
+            Price,
+            NsxID
+        } = this.state;
         return (
             <div className="pageAddProduct">
                 <h3>Add Product</h3>
@@ -184,23 +219,22 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={Name}
                                 onChange={this.onChangeName}
                             />
                         </div>
                         <div className="form-group d-flex justify-content-between">
                             <label>Category: </label>
                             <Select
-                                defaultValue="Selection Category"
+                                placeholder="Selection Category"
                                 style={{ width: "20vw" }}
+                                value={LoaiID}
                                 onChange={this.onChangeLoaiID}
                             >
                                 {categories.map((result, index) => {
-                                    console.log('result', result)
+                                    console.log("result", result);
                                     return (
-                                        <Option
-                                            value={result.id}
-                                            key={index}
-                                        >
+                                        <Option value={result.id} key={index}>
                                             {result.CategoryName}
                                         </Option>
                                     );
@@ -212,6 +246,7 @@ export default class AddProduct extends Component {
                             <Select
                                 defaultValue="Selection Producer"
                                 style={{ width: "20vw" }}
+                                value={NsxID}
                                 onChange={this.onChangeNSXID}
                             >
                                 {producer.map((result) => {
@@ -229,6 +264,7 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={Price}
                                 onChange={this.onChangePrice}
                             />
                         </div>
@@ -240,6 +276,7 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={QRCode}
                                 onChange={this.onChangeQRCode}
                             />
                         </div>
@@ -249,6 +286,7 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={BarCode}
                                 onChange={this.onChangeBarCode}
                             />
                         </div>
@@ -258,6 +296,7 @@ export default class AddProduct extends Component {
                                 type="text"
                                 required
                                 className="form-control"
+                                value={Description}
                                 onChange={this.onChangeDescription}
                             />
                         </div>
@@ -269,6 +308,7 @@ export default class AddProduct extends Component {
                             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                             beforeUpload={beforeUpload}
                             onChange={this.handleChange}
+                            value={Image}
                         >
                             {imageUrl ? (
                                 <img

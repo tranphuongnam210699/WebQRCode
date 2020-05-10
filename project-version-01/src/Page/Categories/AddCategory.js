@@ -29,16 +29,20 @@ export default class AddCategory extends Component {
             CategoryName: this.state.Name,
             id: this.state.ID,
         };
-        console.log('category', category)
 
-        axios
-            .post("http://localhost:5000/category/add", category)
-            .then((res) => message.success("Saved"));
-
-        this.setState({
-            Name: "",
-            ID: "",
-        });
+        if (
+            category.id != '' && category.CategoryName != ''
+        ) {
+            axios
+                .post("http://localhost:5000/category/add", category)
+                .then((res) => message.success("Saved"));
+            this.setState({
+                Name: "",
+                ID: "",
+            });
+        } else {
+            message.error("Missing Data! Please check again");
+        }
     };
     render() {
         return (

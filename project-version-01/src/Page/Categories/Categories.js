@@ -49,7 +49,7 @@ export default class Categories extends Component {
                                 Categories ({Categories.length})
                             </span>
                             <span className="buttonAdd d-flex align-items-center">
-                                <Link to="/addCategory">Add Category</Link>
+                                <Link to="/admin/addCategory">Add Category</Link>
                             </span>
                         </div>
                         <div className="body">
@@ -70,7 +70,7 @@ export default class Categories extends Component {
                                         <div className="col-4 font-weight-bold">
                                             <Link
                                                 to={{
-                                                    pathname: "/editCategory",
+                                                    pathname: "/admin/editCategory",
                                                     search: `?id=${result._id}`,
                                                 }}
                                             >
