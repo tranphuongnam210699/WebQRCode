@@ -10,7 +10,19 @@ export default class AddCategory extends Component {
             Name: "",
             Phone: "",
             Address: "",
+            Producers: [],
         };
+    }
+
+    componentDidMount() {
+        axios
+            .get("http://localhost:5000/producer")
+            .then((response) => {
+                this.setState({ Producers: response.data });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     onChangeName = (e) => {
@@ -53,15 +65,25 @@ export default class AddCategory extends Component {
             producer.Phone != "" &&
             producer.Address != ""
         ) {
-            axios
-                .post("http://localhost:5000/producer/add", producer)
-                .then((res) => message.success("Saved"));
-            this.setState({
-                ID: "",
-                Name: "",
-                Phone: "",
-                Address: "",
+            const arrCheck = this.state.Producers.map((result, index) => {
+                if (result.id == this.state.ID) {
+                    return 1;
+                } else return 0;
             });
+            const isCheck = arrCheck.includes(1);
+            if (isCheck == true) {
+                message.error("Data Exists!! Please check again");
+            } else {
+                axios
+                    .post("http://localhost:5000/producer/add", producer)
+                    .then((res) => message.success("Saved"));
+                this.setState({
+                    ID: "",
+                    Name: "",
+                    Phone: "",
+                    Address: "",
+                });
+            }
         } else {
             message.error("Missing Data! Please check again");
         }

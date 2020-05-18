@@ -51,10 +51,19 @@ export default class AddProduct extends Component {
             imageUrl: "",
             categories: [],
             producer: [],
+            product: [],
         };
     }
 
     componentDidMount() {
+        axios
+            .get("http://localhost:5000/products")
+            .then((response) => {
+                this.setState({ product: response.data });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         axios.get("http://localhost:5000/category").then((response) => {
             if (response.data.length > 0) {
                 response.data.map((result) => {
@@ -143,8 +152,9 @@ export default class AddProduct extends Component {
             Description,
             NsxID,
             Price,
+            product,
         } = this.state;
-        const product = {
+        const productInput = {
             Image: Image,
             Name: Name,
             LoaiID: LoaiID,
@@ -165,24 +175,34 @@ export default class AddProduct extends Component {
             product.NSXId != "" &&
             product.Price != ""
         ) {
-            axios("http://localhost:5000/products/add", {
-                method: "post",
-                headers: new Headers({
-                    "Content-Type": "multipart/form-data",
-                }),
-                data: product,
+            const arrProductCheck = product.map((result, index) => {
+                if (result.BarCode == BarCode) {
+                    return 1;
+                } else return 0;
             });
-            message.success("Saved");
-            this.setState({
-                Image: "",
-                Name: "",
-                LoaiID: "",
-                QRCode: "",
-                BarCode: "",
-                Description: "",
-                NsxID: "",
-                Price: "",
-            });
+            const isCheck = arrProductCheck.includes(1);
+            if (isCheck == true) {
+                message.error("Data Exists!! Please check again");
+            } else {
+                axios("http://localhost:5000/products/add", {
+                    method: "post",
+                    headers: new Headers({
+                        "Content-Type": "multipart/form-data",
+                    }),
+                    data: productInput,
+                });
+                message.success("Saved");
+                this.setState({
+                    Image: "",
+                    Name: "",
+                    LoaiID: "",
+                    QRCode: "",
+                    BarCode: "",
+                    Description: "",
+                    NsxID: "",
+                    Price: "",
+                });
+            }
         } else {
             message.error("Missing Data! Please check again");
         }
@@ -206,7 +226,7 @@ export default class AddProduct extends Component {
             BarCode,
             Description,
             Price,
-            NsxID
+            NsxID,
         } = this.state;
         return (
             <div className="pageAddProduct">
@@ -228,11 +248,9 @@ export default class AddProduct extends Component {
                             <Select
                                 placeholder="Selection Category"
                                 style={{ width: "20vw" }}
-                                value={LoaiID}
                                 onChange={this.onChangeLoaiID}
                             >
                                 {categories.map((result, index) => {
-                                    console.log("result", result);
                                     return (
                                         <Option value={result.id} key={index}>
                                             {result.CategoryName}
@@ -244,14 +262,13 @@ export default class AddProduct extends Component {
                         <div className="form-group d-flex justify-content-between">
                             <label>Producer: </label>
                             <Select
-                                defaultValue="Selection Producer"
+                                placeholder="Selection Producer"
                                 style={{ width: "20vw" }}
-                                value={NsxID}
                                 onChange={this.onChangeNSXID}
                             >
-                                {producer.map((result) => {
+                                {producer.map((result, index) => {
                                     return (
-                                        <Option value={result.id} key={result}>
+                                        <Option value={result.id} key={index}>
                                             {result.NSXName}
                                         </Option>
                                     );

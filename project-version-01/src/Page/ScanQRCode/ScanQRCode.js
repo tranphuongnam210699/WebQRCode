@@ -9,7 +9,7 @@ export default class ScanQRCdoe extends Component {
         super(props);
         this.state = {
             delay: 150,
-            result: 'sua-milo',
+            result: '',
             product: [],
             categories: [],
             producer: [],
@@ -74,7 +74,11 @@ export default class ScanQRCdoe extends Component {
                                 }
                             })}
                         </div>
-                        <div className="buttonChange">Tiếp Tục Quét</div>
+                        <div className="buttonChange" onClick={() => {
+                            this.setState({
+                                result: ''
+                            })
+                        }}>Tiếp Tục Quét</div>
                     </div>
                 </div>
             );

@@ -49,19 +49,18 @@ router.route("/:id").delete((req, res) => {
 router.route("/update/:id").post((req, res) => {
     Product.findById(req.params.id)
         .then((product) => {
-            product.Name = req.body.Name,
-            product.LoaiID = req.body.LoaiID,
-            product.QRCode = req.body.QRCode,
-            product.BarCode = req.body.BarCode,
-            product.productImage = req.body.Image,
-            product.Description = req.body.Description,
-            product.NSXId = req.body.NSXId,
-            product.Price = req.body.Price,
-
-            product
-                .save()
-                .then(() => res.json("product updated!"))
-                .catch((err) => res.status(400).json("Error: " + err));
+            (product.Name = req.body.Name),
+                (product.LoaiID = req.body.LoaiID),
+                (product.QRCode = req.body.QRCode),
+                (product.BarCode = req.body.BarCode),
+                (product.productImage = req.body.Image),
+                (product.Description = req.body.Description),
+                (product.NSXId = req.body.NSXId),
+                (product.Price = req.body.Price),S
+                product
+                    .save()
+                    .then(() => res.json("product updated!"))
+                    .catch((err) => res.status(400).json("Error: " + err));
         })
         .catch((err) => res.status(400).json("Error: " + err));
 });
