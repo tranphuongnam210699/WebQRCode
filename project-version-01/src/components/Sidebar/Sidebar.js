@@ -19,6 +19,9 @@ export default class Sidebar extends Component {
                 <Link to={`${match}/producer`} className="nav-link">
                     Producer
                 </Link>
+                <Link to={`${match}/bill`} className="nav-link">
+                    Bill
+                </Link>
                 <Link to={`${match}/order`} className="nav-link">
                     Order
                 </Link>

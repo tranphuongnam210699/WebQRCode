@@ -15,9 +15,12 @@
         }
     }
     .rightNav{
-        color: white;
+        color: #2E3F4F;
         font-size: 0.97vw;
-
+        background-color: white;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 7px;
         span{
             cursor: pointer;
         }

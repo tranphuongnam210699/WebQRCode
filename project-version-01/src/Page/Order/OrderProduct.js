@@ -6,6 +6,7 @@ import {
     CloseSquareOutlined,
 } from "@ant-design/icons";
 import { message, Select } from "antd";
+import axios from "axios";
 
 import iconBarCode from "../../asset/iconSVG/bar-code-scan.svg";
 
@@ -72,8 +73,8 @@ export default class OrderProduct extends Component {
         }
         this.setState({
             valueQuantity: 1,
-            inputBarCode: ''
-        })
+            inputBarCode: "",
+        });
     };
     deleteProduct = (index) => {
         const { deleteProductOnListOrder } = this.props;
@@ -95,10 +96,53 @@ export default class OrderProduct extends Component {
 
     renderTotalAmount = (total) => {
         if (total > 0) {
-            return <span>{total}.000 VNĐ</span>;
+            console.log();
+            return <span>{Number(total).toLocaleString("es-ES")} VNĐ</span>;
         } else {
             return <span>0 VNĐ</span>;
         }
+    };
+
+    addToBill = (quantity, total, orderList) => {
+        const date = new Date();
+        const letToDay =
+            date.getFullYear() +
+            "-" +
+            (date.getMonth() + 1) +
+            "-" +
+            date.getDate();
+        if (quantity > 0) {
+            const newBill = {
+                quantity: quantity,
+                total: total,
+                idCus: 0,
+                date: letToDay,
+            };
+            axios
+                .post("http://localhost:5000/bill/add", newBill)
+                .then((req, res) => this.addToBillDetail());
+        } else message.error("No product is payment");
+    };
+
+    addToBillDetail = () => {
+        const { orderList, deleteArray } = this.props;
+        axios
+            .get("http://localhost:5000/bill/getIdBillNew")
+            .then(function (req) {
+                return orderList.map((result, index) => {
+                    const { barcode, quantity, price, total } = result;
+                    const newBill = {
+                        idBill: req.data[0]._id,
+                        barCode: barcode,
+                        quantity: quantity,
+                        price: price,
+                        total: total,
+                    };
+                    axios.post("http://localhost:5000/billDetail/add", newBill);
+                });
+            });
+        message.success("Done");
+        deleteArray();
     };
 
     render() {
@@ -163,7 +207,7 @@ export default class OrderProduct extends Component {
                             <div className="column5">Total (VNĐ)</div>
                             <div className="column6"></div>
                         </div>
-                        <div className="contenTable_wrapper">
+                        <div className="contentTable_wrapper">
                             {orderList.map((result, index) => {
                                 return (
                                     <div
@@ -184,8 +228,10 @@ export default class OrderProduct extends Component {
                                         </div>
                                         <div className="column5">
                                             <span>
-                                                {result.price * result.quantity}
-                                                .000
+                                                {Number(
+                                                    result.price *
+                                                        result.quantity
+                                                ).toLocaleString("el-GR")}
                                             </span>
                                         </div>
                                         <div className="column6">
@@ -213,14 +259,25 @@ export default class OrderProduct extends Component {
                     </div>
                 </div>
                 <div className="buttonEvent d-flex justify-content-end align-items-center">
-                    <div className="eventClear d-flex align-items-center justify-content-center" onClick={() => {
-                        deleteArray()
-                    }
-                    }>
+                    <div
+                        className="eventClear d-flex align-items-center justify-content-center"
+                        onClick={() => {
+                            deleteArray();
+                        }}
+                    >
                         <CloseSquareOutlined />
                         <span className="titleClear">Clear</span>
                     </div>
-                    <div className="eventPayment d-flex justify-content-between align-items-center">
+                    <div
+                        className="eventPayment d-flex justify-content-between align-items-center"
+                        onClick={() => {
+                            this.addToBill(
+                                orderList.length,
+                                totalAmount,
+                                orderList
+                            );
+                        }}
+                    >
                         <span className="titlePay">Pay:</span>
                         <span className="contentPay">
                             {this.renderTotalAmount(totalAmount)}

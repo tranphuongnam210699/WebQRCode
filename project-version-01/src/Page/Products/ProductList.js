@@ -17,6 +17,7 @@ export default class ProductList extends Component {
             categories: [],
             producer: [],
             visible: false,
+            description: "",
         };
     }
     componentDidMount() {
@@ -62,8 +63,9 @@ export default class ProductList extends Component {
         });
     };
 
-    showModal = () => {
+    showModal = (description) => {
         this.setState({
+            description: description,
             visible: true,
         });
     };
@@ -83,16 +85,16 @@ export default class ProductList extends Component {
     };
 
     hiddenContentDescription = (description) => {
-        if (description.length > 140) {
-            const str = description.slice(0, 140);
-            
-            const arrayDescription = description.split(";");
+        // console.log(description);
+        if (description.length > 120) {
+            const str = description.slice(0, 120);
+
             return (
                 <div>
                     <div className="contentDescription">
-                        <span>{str.split(";").join('.')}... </span>
+                        <span>{str.split(";").join(".")}... </span>
                         <a
-                            onClick={this.showModal}
+                            onClick={() => this.showModal(description)}
                             style={{
                                 color: "#0A3F7F",
                                 textDecoration: "underline #0A3F7F",
@@ -101,35 +103,44 @@ export default class ProductList extends Component {
                         >
                             Xem chi tiết
                         </a>
+                        
                     </div>
-                    <Modal
-                        title="Description Detail"
-                        visible={this.state.visible}
-                        onOk={this.handleOk}
-                        onCancel={this.handleCancel}
-                        footer={null}
-                    >
-                        <div className="d-flex flex-column">
-                            {arrayDescription.map((content, index) => {
-                                if (content.length > 0) {
-                                    const arrayContent = content.split(":");
-                                    return (
-                                        <div key={index}>
-                                            <span className="font-weight-bold">
-                                                {arrayContent[0]}:
-                                            </span>
-                                            <span>{arrayContent[1]}</span>
-                                        </div>
-                                    );
-                                }
-                            })}
-                        </div>
-                    </Modal>
                 </div>
             );
         } else {
             return <span>{description}</span>;
         }
+    };
+
+    showModalWhenClick = () => {
+        const { description } = this.state;
+        const arrayDescription = description.split(";");
+        return (
+            <Modal
+                title="Description Detail"
+                visible={this.state.visible}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+                footer={null}
+                className='modalDescriptionProduct'
+            >
+                <div className="d-flex flex-column">
+                    {arrayDescription.map((content, index) => {
+                        if (content.length > 0) {
+                            const arrayContent = content.split(":");
+                            return (
+                                <div key={index}>
+                                    <span className="font-weight-bold">
+                                        {arrayContent[0]}:
+                                    </span>
+                                    <span>{arrayContent[1]}</span>
+                                </div>
+                            );
+                        }
+                    })}
+                </div>
+            </Modal>
+        );
     };
 
     render() {
@@ -141,10 +152,21 @@ export default class ProductList extends Component {
                         <span className="titleHeaderPage">
                             Products ({product.length})
                         </span>
-                        <span className="buttonAdd">
-                            <Link to="/admin/addProduct">Add Product</Link>
-                        </span>
+                        <div className="">
+                            <span
+                                className="buttonAdd"
+                                style={{ marginRight: 10 }}
+                            >
+                                <Link to="/admin/importWithExcel">
+                                    Import Excel
+                                </Link>
+                            </span>
+                            <span className="buttonAdd">
+                                <Link to="/admin/addProduct">Add Product</Link>
+                            </span>
+                        </div>
                     </div>
+                    {this.showModalWhenClick()}
                     <div className="table_wrapper">
                         <div className="titleHead d-flex">
                             <div className="column1">Image</div>
@@ -236,9 +258,7 @@ export default class ProductList extends Component {
                                                     contentProduct.QRCode
                                                 )}
                                             </div>
-                                            <div
-                                                className="column5"
-                                            >
+                                            <div className="column5">
                                                 <Barcode
                                                     value={
                                                         contentProduct.BarCode
@@ -252,7 +272,9 @@ export default class ProductList extends Component {
                                             </div>
                                             <div className="column8 d-flex justify-content-end">
                                                 <span>
-                                                    {contentProduct.Price}
+                                                {Number(
+                                                    contentProduct.Price
+                                                ).toLocaleString("el-GR")}
                                                 </span>
                                             </div>
                                             <div className="column9 d-flex justify-content-between">
@@ -274,7 +296,92 @@ export default class ProductList extends Component {
                                             </div>
                                         </div>
                                     );
-                                }
+                                } else
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="contentTable d-flex"
+                                        >
+                                            <div className="column1">
+                                                <img
+                                                    src={
+                                                        contentProduct.productImage
+                                                    }
+                                                    alt=""
+                                                />
+                                            </div>
+                                            <div className="column2 d-flex flex-column justify-content-between">
+                                                <div className="topColumn2">
+                                                    <Link
+                                                        to={{
+                                                            pathname:
+                                                                "/admin/editProduct",
+                                                            search: `?id=${contentProduct._id}`,
+                                                        }}
+                                                    >
+                                                        <span className="font-weight-bold">
+                                                            {
+                                                                contentProduct.Name
+                                                            }
+                                                        </span>
+                                                    </Link>
+                                                </div>
+                                                <div className="bottomColumn2 d-flex flex-column">
+                                                    <div>
+                                                        <span className="font-weight-bold">
+                                                            Category:
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span className="font-weight-bold">
+                                                            Producer:
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="column4">
+                                                {this.showQRCODE(
+                                                    contentProduct.QRCode
+                                                )}
+                                            </div>
+                                            <div className="column5">
+                                                <Barcode
+                                                    value={
+                                                        contentProduct.BarCode
+                                                    }
+                                                />
+                                            </div>
+                                            <div className="column6">
+                                                {this.hiddenContentDescription(
+                                                    contentProduct.Description
+                                                )}
+                                            </div>
+                                            <div className="column8 d-flex justify-content-end">
+                                                <span>
+                                                {Number(
+                                                    contentProduct.Price
+                                                ).toLocaleString("el-GR")}
+                                                </span>
+                                            </div>
+                                            <div className="column9 d-flex justify-content-between">
+                                                <Popconfirm
+                                                    placement="top"
+                                                    title={text}
+                                                    onConfirm={() => {
+                                                        this.deleteProduct(
+                                                            contentProduct._id
+                                                        );
+                                                    }}
+                                                    okText="Yes"
+                                                    cancelText="No"
+                                                >
+                                                    <div className="iconDelete">
+                                                        <CloseOutlined />
+                                                    </div>
+                                                </Popconfirm>
+                                            </div>
+                                        </div>
+                                    );
                             })}
                         </div>
                     </div>

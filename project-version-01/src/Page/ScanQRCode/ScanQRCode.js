@@ -4,27 +4,20 @@ import axios from "axios";
 
 import "./ScanQRCode.scss";
 
-export default class ScanQRCdoe extends Component {
+export default class ScanQRCode extends Component {
     constructor(props) {
         super(props);
         this.state = {
             delay: 150,
-            result: '',
-            product: [],
+            result: "",
+            productScan: {},
             categories: [],
             producer: [],
+            product: {},
         };
         this.handleScan = this.handleScan.bind(this);
     }
     componentDidMount() {
-        axios
-            .get("http://localhost:5000/products")
-            .then((response) => {
-                this.setState({ product: response.data });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
         axios
             .get("http://localhost:5000/category")
             .then((response) => {
@@ -44,9 +37,15 @@ export default class ScanQRCdoe extends Component {
     }
     handleScan(data) {
         if (data) {
-            this.setState({
-                result: data,
-            });
+            console.log("data:", data);
+            axios
+                .get("http://localhost:5000/products/findOneProduct/" + data)
+                .then((req, res) => {
+                    this.setState({
+                        product: req.data,
+                        result: data,
+                    });
+                });
         }
     }
     handleError(err) {
@@ -57,7 +56,7 @@ export default class ScanQRCdoe extends Component {
         if (description.length > 0) {
             const arrayDescription = description.split(";");
             return (
-                <div className='contentDescription_wrapper'>
+                <div className="contentDescription_wrapper">
                     <div className="contentDescription">
                         <div className="d-flex flex-column">
                             {arrayDescription.map((content, index) => {
@@ -74,11 +73,16 @@ export default class ScanQRCdoe extends Component {
                                 }
                             })}
                         </div>
-                        <div className="buttonChange" onClick={() => {
-                            this.setState({
-                                result: ''
-                            })
-                        }}>Tiếp Tục Quét</div>
+                        <div
+                            className="buttonChange"
+                            onClick={() => {
+                                this.setState({
+                                    result: "",
+                                });
+                            }}
+                        >
+                            Tiếp Tục Quét
+                        </div>
                     </div>
                 </div>
             );
@@ -86,36 +90,37 @@ export default class ScanQRCdoe extends Component {
     };
 
     onChangeResultScan = () => {
-        const { result, product, categories, producer } = this.state;
+        const { result } = this.state;
         if (result == "") {
             return (
-                <span className="d-flex justify-content-center font-weight-bold" style={{
-                    fontSize: '4.8vw',
-                    marginTop: '3vw'
-                }}>
-                    please Scan
+                <span
+                    className="d-flex justify-content-center font-weight-bold"
+                    style={{
+                        fontSize: "4.8vw",
+                        marginTop: "3vw",
+                    }}
+                >
+                    Please Scan
                 </span>
             );
         } else {
-            const productScan = product.find(
-                (product) => product.QRCode == result
-            );
-            if (productScan != null && productScan != undefined) {
+            const { product, categories, producer } = this.state;
+            if (product != null) {
                 const categoryName = categories.find(
-                    (result) => result.id == productScan.LoaiID
+                    (result) => result.id == product.LoaiID
                 );
                 const producerName = producer.find(
-                    (result) => result.id == productScan.NSXId
+                    (result) => result.id == product.NSXId
                 );
                 return (
                     <div className="productDetail">
                         <div className="infoProduct d-flex ">
                             <div className="imageProduct">
-                                <img src={productScan.productImage} alt="" />
+                                <img src={product.productImage} alt="" />
                             </div>
                             <div className="content_wrapper d-flex flex-column justify-content-between">
                                 <span className="nameProduct font-weight-bold">
-                                    {productScan.Name}
+                                    {product.Name}
                                 </span>
                                 <div className="d-flex flex-column">
                                     <div className="content">
@@ -130,17 +135,26 @@ export default class ScanQRCdoe extends Component {
                             </div>
                         </div>
                         <div>
-                            {this.hiddenContentDescription(
-                                productScan.Description
-                            )}
+                            {this.hiddenContentDescription(product.Description)}
                         </div>
                     </div>
                 );
+            } else {
+                return <span
+                    className="d-flex justify-content-center font-weight-bold text-center"
+                    style={{
+                        fontSize: "4.8vw",
+                        marginTop: "3vw",
+                    }}
+                >
+                    QRCode: {result} <br /> Product not exits!!!
+                </span>;
             }
         }
     };
 
     render() {
+        console.log(this.state.product);
         return (
             <div className="pageScanQRCode">
                 <div className="navBarHeader d-flex justify-content-center">

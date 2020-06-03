@@ -1,0 +1,85 @@
+.pageExcelReaderFile{
+    font-size: 1.11vw;
+    .titleHeaderPage{
+        font-size: 2vw;
+        font-weight: bold;
+        margin-bottom: 2vh;
+    }
+    .buttonSubmit{
+        margin-top: 2vh;
+        background-color: #2E3F4F;
+        border: none;
+        color: white;
+        font-weight: bold;
+        padding: 5px 15px;
+        border-radius: 10px;
+        outline: none;
+        box-shadow: none;
+    }
+    .resultList{
+        margin-top: 2vh;
+        margin-left: 1vw;
+        padding: 1vw;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+        &__column1 {
+            width: 5%;
+            display: flex;
+            justify-content: center;
+        }
+        &__column2 {
+            width: 15%;
+        }
+        &__column3 {
+            width: 15%;
+        }
+        &__column4 {
+            width: 15%;
+        }
+        &__column5 {
+            width: 15%;
+        }
+        &__column6 {
+            width: 35%;
+            margin-left: 1%;
+        }
+        &__column5,
+        &__column4,
+        &__column3,
+        &__column2,
+        &__column1 {
+            margin: 0 1%;
+        }
+        &__title {
+            font-size: 1.11vw;
+            font-weight: bold;
+            padding: 1.5vh 0;
+            padding-right: 10px;
+            border-bottom: 1px solid #000;
+        }
+        &__content__wrapper {
+            overflow-y: scroll;
+            height: 46vh;
+        }
+        &__content {
+            // border-bottom: 1px solid #000;
+            padding: 2.5vh 0;
+            font-size: 0.97vw;
+        }
+        &__content__wrapper::-webkit-scrollbar {
+            width: 10px;
+            background-color: white;
+        }
+        &__content__wrapper::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: #0a3f7f;
+        }
+        &__button{
+            background-color: #2E3F4F;
+            color: white;
+            margin-top: 3vh;
+            padding: 1.5vh 3vw;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+    }
+}

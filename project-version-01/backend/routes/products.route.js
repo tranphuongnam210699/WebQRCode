@@ -56,7 +56,7 @@ router.route("/update/:id").post((req, res) => {
                 (product.productImage = req.body.Image),
                 (product.Description = req.body.Description),
                 (product.NSXId = req.body.NSXId),
-                (product.Price = req.body.Price),S
+                (product.Price = req.body.Price),
                 product
                     .save()
                     .then(() => res.json("product updated!"))
@@ -65,4 +65,9 @@ router.route("/update/:id").post((req, res) => {
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/findOneProduct/:qrCode").get((req, res) => {
+    Product.findOne({ QRCode: req.params.qrCode }).then((products) =>
+        res.json(products)
+    );
+});
 module.exports = router;

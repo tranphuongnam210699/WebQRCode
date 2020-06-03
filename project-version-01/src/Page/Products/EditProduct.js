@@ -136,9 +136,9 @@ export default class EditProduct extends Component {
         });
     }
 
-    onChangeNSXID(e) {
+    onChangeNSXID(value) {
         this.setState({
-            NsxID: e.target.value,
+            NsxID: value,
         });
     }
 
@@ -244,7 +244,6 @@ export default class EditProduct extends Component {
                                 onChange={this.onChangeLoaiID}
                             >
                                 {categories.map((result, index) => {
-                                    console.log('result', result)
                                     return (
                                         <Option
                                             value={result.id}

@@ -242,7 +242,7 @@
                     padding: 0.5vh 0;
                     border-bottom: 1px solid #2e3f4f;
                 }
-                .contenTable_wrapper {
+                .contentTable_wrapper {
                     height: 45vh;
                     overflow-y: scroll;
                     border-radius: 7px;
@@ -263,11 +263,11 @@
                         }
                     }
                 }
-                .contenTable_wrapper::-webkit-scrollbar {
+                .contentTable_wrapper::-webkit-scrollbar {
                     width: 0.5vw;
                     background-color: white;
                 }
-                .contenTable_wrapper::-webkit-scrollbar-thumb {
+                .contentTable_wrapper::-webkit-scrollbar-thumb {
                     border-radius: 10px;
                     background-color: #2e3f4f;
                 }

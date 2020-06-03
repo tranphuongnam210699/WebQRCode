@@ -108,7 +108,7 @@ export default class Index extends Component {
     deleteArray = () => {
         const { orderList } = this.state
         if(orderList.length > 0){
-            message.success("Deleted All");
+            // message.success("Deleted All");
             this.setState({
                 orderList: []
             })

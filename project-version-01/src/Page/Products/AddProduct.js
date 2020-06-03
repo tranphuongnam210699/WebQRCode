@@ -166,14 +166,14 @@ export default class AddProduct extends Component {
         };
 
         if (
-            product.Image != "" &&
-            product.Name != "" &&
-            product.LoaiID != "" &&
-            product.QRCode != "" &&
-            product.BarCode != "" &&
-            product.Description != "" &&
-            product.NSXId != "" &&
-            product.Price != ""
+            Image != "" &&
+            Name != "" &&
+            LoaiID != "" &&
+            QRCode != "" &&
+            BarCode != "" &&
+            Description != "" &&
+            NsxID != "" &&
+            Price != ""
         ) {
             const arrProductCheck = product.map((result, index) => {
                 if (result.BarCode == BarCode) {
