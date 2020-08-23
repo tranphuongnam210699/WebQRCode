@@ -1,2 +1,2 @@
 # WebQRCode
-đồ án cơ sở
+đồ án quản lý dự án
